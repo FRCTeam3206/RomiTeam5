@@ -67,13 +67,27 @@ public class Robot extends TimedRobot {
   }
 
   /** This function is called periodically during autonomous. */
+  private int state=0;
   @Override
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
       case kCustomAuto:
-        // Put custom auto code here
+        if(state==0){
+          m_drivetrain.arcadeDrive(1, 0);
+          if (m_drivetrain.getLeftDistanceInch() >= 12){
+            state=1;
+          }
+        if(state==1){
+          m_drivetrain.arcadeDrive(0, 1);
+          if (m_drivetrain.getLeftDistanceInch() >= 12){
+            state=2;
+          }
+        }
+
+        }
         break;
       case kDefaultAuto:
+        break;
       default:
         // Put default auto code here
         break;
